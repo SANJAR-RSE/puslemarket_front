@@ -1,32 +1,20 @@
-"use client";
+import Link from "next/link";
+import { Benefits, Footer, Header, Icon, ProductGrid, SectionHeading, products } from "./components/storefront";
 
-import axios from "axios";
-import React, { useEffect, useState } from "react";
+const categories = [
+  ["01", "Smartfonlar", "Har lahzaga mos", "https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=600&q=80", "cat-peach"],
+  ["02", "Noutbuklar", "G‘oyalar uchun maydon", "https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=600&q=80", "cat-blue"],
+  ["03", "Audio", "O‘zingizni tinglang", "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80", "cat-lilac"],
+  ["04", "Wearables", "Harakatda bo‘ling", "https://images.unsplash.com/photo-1544117519-31a4b719223d?auto=format&fit=crop&w=600&q=80", "cat-mint"],
+];
 
-function Home() {
-  const [fdata, setfdata] = useState<any[]>([]);
-
-  async function fetching() {
-    const res = await axios.get(process.env.NEXT_PUBLIC_API_URL!, {
-      headers: {
-        "ngrok-skip-browser-warning": "true",
-      },
-    });
-    setfdata(res.data);
-    console.log(res.data);
-  }
-
-  useEffect(() => {
-    fetching();
-  }, []);
-
-  return (
-    <div>
-      {fdata.map((item) => (
-        <div key={item.id}>{item.name}</div>
-      ))}
-    </div>
-  );
+export default function Home() {
+ return <><Header/><main>
+   <section className="hero"><div className="hero-copy"><span className="hero-kicker"><i/> TEXNOLOGIYA YANGI QIRRADA</span><h1>Kelajak<br/>qo‘lingizda<span className="hero-period">.</span></h1><p>Har kuni ilhom beradigan texnologiyalar.<br/>Siz uchun sinchiklab tanlangan.</p><Link className="primary-btn" href="/products">Kashf etish <Icon name="arrow" size={18}/></Link><div className="hero-proof"><div className="proof-avatars"><b>A</b><b>M</b><b>S</b></div><span><strong>12 000+</strong> mamnun mijozlar</span><span className="proof-star">★★★★★ <small>4.9/5</small></span></div></div><div className="hero-art"><div className="hero-image-bg"/><img className="hero-device" src="https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&w=1200&q=90" alt="iPhone 16 Pro titanium"/><div className="floating-note note-top"><span>✳</span><div><small>YANGI KELDI</small><b>iPhone 16 Pro</b></div></div><div className="floating-note note-bottom"><span className="note-check">✓</span><div><small>BUGUN BUYURTMA QILING</small><b>Ertaga qo‘lingizda</b></div></div><span className="hero-vertical">DESIGNED FOR YOUR EVERYDAY <i>✳</i></span><span className="hero-index">01 <i>/ 03</i></span></div></section>
+   <section className="categories-section content-width"><div className="category-intro"><span className="eyebrow"><i/> TANLOV SIZNIKI</span><h2>O‘zingizga<br/>mosini toping.</h2><Link href="/products" className="text-link">Barcha kategoriyalar <Icon name="arrow" size={17}/></Link></div>{categories.map(([n, name, hint, image, color])=><Link className={`category-card ${color}`} href="/products" key={n}><span className="category-number">{n} / 04</span><img src={image} alt=""/><span className="category-info"><small>{hint}</small><b>{name}</b></span><span className="category-arrow">↗</span></Link>)}</section>
+   <section className="content-width featured-section"><SectionHeading eyebrow="SIZ UCHUN TANLANDI" title="Ko‘p sevib tanlanganlar"/><div className="filter-pills"><button className="active">Barchasi <span>08</span></button><button>Smartfonlar</button><button>Audio</button><button>Wearables</button><button>Noutbuklar</button></div><ProductGrid/></section>
+   <section className="promo content-width"><div className="promo-copy"><span className="eyebrow"><i/> YANGI QO‘SHILDI</span><h2>MacBook Air.<br/><em>Yengil. Kuchli.</em></h2><p>M3 chip bilan yanada tez, ingichka va jim ishlaydi.<br/>Yangi imkoniyatlarga joy oching.</p><Link href="/products" className="promo-link">MacBook Air’ni ko‘rish <Icon name="arrow" size={17}/></Link><span className="promo-price">16 490 000 <small>so‘mdan</small></span></div><div className="promo-art"><div className="promo-glow"/><img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&w=1000&q=85" alt="MacBook Air"/><span className="promo-orbit">THIN AS YOUR NEXT BIG IDEA</span><span className="promo-corner">M3<br/>CHIP</span></div><div className="promo-side">01 / FEATURED PRODUCT</div></section>
+   <section className="content-width latest-section"><SectionHeading eyebrow="YANGI KELGANLAR" title="Yangi avlod. Yangi odatlar."/><ProductGrid items={products.slice(4,8)}/></section>
+   <Benefits/><section className="newsletter content-width"><div><span className="eyebrow"><i/> PULSE LETTER</span><h2>Yaxshi narsalar<br/>xabarsiz qolmasin.</h2><p>Yangi mahsulotlar va siz uchun tayyorlangan takliflar.</p></div><form><label><input placeholder="Email manzilingiz" type="email"/><button aria-label="Obuna bo‘lish">↗</button></label><small>Obuna bo‘lish orqali maxfiylik siyosatimizga rozilik bildirasiz.</small></form><span className="newsletter-spark">✳</span></section>
+ </main><Footer/></>;
 }
-
-export default Home;

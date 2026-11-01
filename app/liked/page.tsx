@@ -1,0 +1,4 @@
+import Link from "next/link";
+import { Icon, PageShell, ProductGrid, products } from "../components/storefront";
+
+export default function LikedPage() { return <PageShell eyebrow="SAQLAB QO‘YILGANLAR" title="Sevimlilar" description="Yoqtirganlaringiz shu yerda. Keyinroq ko‘rish uchun saqlab qo‘ying."><div className="saved-toolbar"><span><b>3 ta mahsulot</b> sevimlilaringizda</span><button>So‘nggi qo‘shilganlar⌄</button></div><ProductGrid items={products.slice(0,3)}/><div className="liked-note"><span>✳</span><div><b>Hali qaror qilmadingizmi?</b><small>Sevimlilaringizni yaqinlaringiz bilan ulashing yoki yana bir bor ko‘rib chiqing.</small></div><button>Ro‘yxatni ulashish <Icon name="arrow" size={16}/></button></div><div className="continue-shopping"><Link className="text-link" href="/products"><Icon name="arrow" size={17}/> Xaridni davom ettirish</Link></div></PageShell> }
